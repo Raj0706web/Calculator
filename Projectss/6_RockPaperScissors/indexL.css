@@ -1,0 +1,36 @@
+body{
+  background-color: cornsilk;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* necessary for vertical centering */
+  margin: 0;
+}
+#play{
+  height: 90px;
+  width: 168px;
+  background-color: #DF2E38;
+  border-radius: 14px;
+  color:white;
+  font-size: 27px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+#title{
+  font-size: 37px;
+  font-weight: bold;
+  color: #070A52;
+  display: inline-block;
+}
+#darkmode{
+  position: absolute;
+  top: 20px;        
+  right: 20px;      
+  width: 40px;      
+  height: 40px;
+  cursor: pointer;
+  z-index: 1000;
+}

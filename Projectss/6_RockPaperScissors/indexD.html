@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors</title>
+  <link rel="stylesheet" href="indexD.css">
+</head>
+<body>
+  <button id="play">PLAY</button>
+  <div id="title">Rock Paper Scissors<br> with Ankit</div>
+  <img src="lightmode.png" alt="Light Mode" id="lightmode">
+  <script>
+    document.getElementById("lightmode").addEventListener("click", function() {
+      window.location.href = "indexL.html";
+    });
+    document.getElementById("play").addEventListener("click", function() {
+      window.location.href = "GameScreenD.html";
+    });
+  </script>
+</body>
+</html>

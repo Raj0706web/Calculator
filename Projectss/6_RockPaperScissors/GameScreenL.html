@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Screen -- Light</title>
+  <link rel="stylesheet" href="GameScreenL.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="heading">Rock Paper Scissors</h1>
+    <img src="darkmode.png" alt="Dark Mode" id="darkmode">
+    <div class="reset" onclick="localStorage.clear(); resetScore();">RESET THE TOUR</div>
+    <div class="game-state">
+        <div class="player score">Player Score: </div>
+        <div class="game-result">Make Your Move</div>
+        <div class="computer score">Computer Score: </div>
+      </div>
+    <div class="center-space">
+      <div class="hands">
+        <img id="player-hand" class="hand-img" src="question.png" alt="Player Hand">
+        <div class="vs">vs</div>
+        <img id="computer-hand" class="hand-img" src="question.png" alt="Computer Hand">
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn">ROCK</button>
+      <button class="btn">PAPER</button>
+      <button class="btn">SCISSORS</button>
+    </div>
+  </div>
+  <script>
+    const playerScoreElement = document.querySelector('.player.score');
+    const computerScoreElement = document.querySelector('.computer.score');
+    const gameResultElement = document.querySelector('.game-result');
+    const playerHandElement = document.getElementById('player-hand');
+    const computerHandElement = document.getElementById('computer-hand');
+    const buttons = document.querySelectorAll('.btn');
+
+    let scoreStr = localStorage.getItem('score');
+    let score;
+    resetScore(scoreStr);
+    function resetScore(scoreStr){
+      score = scoreStr ? JSON.parse(scoreStr) : { player: 0, computer: 0 };
+      playerScoreElement.textContent = `Player Score: ${score.player}`; 
+      computerScoreElement.textContent = `Computer Score: ${score.computer}`;
+
+      gameResultElement.textContent = "Make Your Move";
+      playerHandElement.src = "question.png";
+      computerHandElement.src = "question.png";
+    }
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const playerChoice = button.textContent.toLowerCase();
+        const computerChoice = getComputerChoice();
+        updateHands(playerChoice, computerChoice);
+        determineWinner(playerChoice, computerChoice);
+      });
+    });
+
+    function getComputerChoice() {
+      const choices = ['rock', 'paper', 'scissors'];
+      return choices[Math.floor(Math.random() * choices.length)];
+    }
+
+    function updateHands(playerChoice, computerChoice) {
+      playerHandElement.src = `${playerChoice}Right.png`;
+      computerHandElement.src = `${computerChoice}Left.png`;
+    }
+
+    function determineWinner(player, computer) {
+      if (player === computer) {
+        gameResultElement.textContent = "It's a Tie!";
+      } else if (
+        (player === 'rock' && computer === 'scissors') ||
+        (player === 'paper' && computer === 'rock') ||
+        (player === 'scissors' && computer === 'paper')
+      ) {
+        score.player++;
+        gameResultElement.textContent = "You Win!";
+      } else {
+        score.computer++;
+        gameResultElement.textContent = "You Lose!";
+      }
+      updateScores();
+    }
+
+    function updateScores() {
+      localStorage.setItem('score', JSON.stringify(score));
+      playerScoreElement.textContent = `Player Score: ${score.player}`;
+      computerScoreElement.textContent = `Computer Score: ${score.computer}`;
+    }
+    document.getElementById("darkmode").addEventListener("click", function() {
+      window.location.href = "GameScreenD.html";
+    });
+  </script>
+</body>
+</html>
